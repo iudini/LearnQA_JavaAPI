@@ -4,29 +4,41 @@ import io.restassured.response.Response;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HelloWorldTest {
 
     @Test
-    public void testRestAssured() {
-        Response response = RestAssured
+    public void testRestAssured() throws InterruptedException {
+        JsonPath startJob = RestAssured
+                .get("https://playground.learnqa.ru/api/longtime_job")
+                .jsonPath();
+        String token = startJob.get("token");
+        Integer seconds = startJob.get("seconds");
+        System.out.println(seconds);
+
+        JsonPath firstTry = RestAssured
                 .given()
-                .redirects()
-                .follow(false)
-                .get("https://playground.learnqa.ru/api/long_redirect")
-                .andReturn();
-        String location = response.getHeader("Location");
-        System.out.println(location);
-        while (response.getStatusCode() != 200) {
-            response = RestAssured
-                    .given()
-                    .redirects()
-                    .follow(false)
-                    .get(location)
-                    .andReturn();
-            location = response.getHeader("Location");
-            System.out.println(location);
+                .queryParam("token", token)
+                .get("https://playground.learnqa.ru/api/longtime_job")
+                .jsonPath();
+        String status = firstTry.get("status");
+        System.out.println(status);
+
+        Thread.sleep(seconds * 1000);
+        JsonPath secondTry = RestAssured
+                .given()
+                .queryParam("token", token)
+                .get("https://playground.learnqa.ru/api/longtime_job")
+                .jsonPath();
+        status = secondTry.get("status");
+        String result = secondTry.get("result");
+        System.out.println(status);
+        System.out.println(result != null);
+        if (result != null) {
+            System.out.println(result);
         }
     }
 }
