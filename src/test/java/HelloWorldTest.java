@@ -18,5 +18,15 @@ public class HelloWorldTest {
                 .andReturn();
         String location = response.getHeader("Location");
         System.out.println(location);
+        while (response.getStatusCode() != 200) {
+            response = RestAssured
+                    .given()
+                    .redirects()
+                    .follow(false)
+                    .get(location)
+                    .andReturn();
+            location = response.getHeader("Location");
+            System.out.println(location);
+        }
     }
 }
