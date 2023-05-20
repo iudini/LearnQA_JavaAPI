@@ -12,6 +12,11 @@ public class DataGenerator {
         return String.format("learnqa%s@example.com", timestamp);
     }
 
+    public static String getRandomInvalidEmail() {
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        return String.format("learnqa%sexample.com", timestamp);
+    }
+
     public static Map<String, String> getRegistrationData() {
         Map<String, String> data = new HashMap<>();
         data.put("email", getRandomEmail());
