@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class DataGenerator {
     public static String getRandomEmail() {
@@ -35,5 +36,25 @@ public class DataGenerator {
             }
         }
         return userData;
+    }
+
+    public static String getShortName() {
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        return String.valueOf(
+                letters.charAt(
+                        new Random().nextInt(letters.length())
+                )
+        );
+    }
+
+    public static String getLongName(int length) {
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(letters.charAt(
+                    new Random().nextInt(letters.length())
+            ));
+        }
+        return sb.toString();
     }
 }

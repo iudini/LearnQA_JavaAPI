@@ -46,4 +46,12 @@ public class ApiCoreRequests {
                 .post(url)
                 .andReturn();
     }
+
+    @Step("Make a POST-request for registration")
+    public Response makePostRequestForRegistration(String url, Map<String, String> registrationData) {
+        return given()
+                .body(registrationData)
+                .post(url)
+                .andReturn();
+    }
 }
