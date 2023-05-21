@@ -64,6 +64,12 @@ public class UserDeleteTest extends BaseTestCase {
                 .makeGetRequest("https://playground.learnqa.ru/api/user/" + id, header, cookie);
 
         Assertions.assertResponseCodeEquals(responseUserData, 404);
+
+        responseGetAuth = apiCoreRequests
+                .makePostRequest("https://playground.learnqa.ru/api/user/login", userData);
+
+        Assertions.assertResponseTextEquals(responseGetAuth, "Invalid username/password supplied");
+        Assertions.assertResponseCodeEquals(responseGetAuth, 400);
     }
 
     @Test
