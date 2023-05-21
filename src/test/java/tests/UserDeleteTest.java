@@ -1,10 +1,12 @@
 package tests;
 
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -14,6 +16,8 @@ public class UserDeleteTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
+    @DisplayName("Delete immutable user")
+    @Description("Удаление неизменяемого пользователя")
     public void deleteImmutableUserTest() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -32,6 +36,8 @@ public class UserDeleteTest extends BaseTestCase {
     }
 
     @Test
+    @DisplayName("Delete just created user")
+    @Description("Удаление только что созданного пользователя")
     public void deleteJustCreatedUserTest() {
         Map<String, String> userData = DataGenerator.getRegistrationData();
 
@@ -61,6 +67,8 @@ public class UserDeleteTest extends BaseTestCase {
     }
 
     @Test
+    @DisplayName("Delete another user")
+    @Description("Удаление другого пользователя")
     public void deleteAnotherUserTest() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
